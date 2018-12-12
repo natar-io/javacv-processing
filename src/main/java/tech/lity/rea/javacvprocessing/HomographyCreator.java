@@ -20,10 +20,12 @@
  */
 package tech.lity.rea.javacvprocessing;
 
+import java.util.List;
 import static org.bytedeco.javacpp.opencv_calib3d.cvFindHomography;
 import org.bytedeco.javacpp.opencv_core;
 import static org.bytedeco.javacpp.opencv_core.CV_32FC1;
 import static org.bytedeco.javacpp.opencv_core.cvCreateMat;
+import org.bytedeco.javacv.JavaCV;
 import processing.core.PMatrix3D;
 import processing.core.PVector;
 import toxi.geom.Matrix4x4;
@@ -139,5 +141,66 @@ public class HomographyCreator {
     public String toString() {
         return this.mat.toString();
     }
+    
+    
+    public static opencv_core.CvMat createHomography(List<PVector> in, List<PVector> out) {
+        opencv_core.CvMat srcPoints;
+        opencv_core.CvMat dstPoints;
+        int nbPoints = in.size();
+        opencv_core.CvMat homography;
+
+        // TODO: no create map
+        srcPoints = cvCreateMat(2, in.size(), opencv_core.CV_32FC1);
+        dstPoints = cvCreateMat(2, in.size(), opencv_core.CV_32FC1);
+        homography = cvCreateMat(3, 3, opencv_core.CV_32FC1);
+
+        if (in.size() == 4 && out.size() == 4) {
+
+            double[] src = new double[8];
+            double[] dst = new double[8];
+//            CvMat map = CvMat.create(3, 3);
+            for (int i = 0; i < 4; i++) {
+                src[i * 2] = in.get(i).x;
+                src[i * 2 + 1] = in.get(i).y;
+                dst[i * 2] = out.get(i).x;
+                dst[i * 2 + 1] = out.get(i).y;
+            }
+//            System.out.println("JavaCV perspective...");
+            JavaCV.getPerspectiveTransform(src, dst, homography);
+            return homography;
+        }
+
+        for (int i = 0; i < in.size(); i++) {
+            srcPoints.put(i, in.get(i).x);
+            srcPoints.put(i + nbPoints, in.get(i).y);
+            dstPoints.put(i, out.get(i).x);
+            dstPoints.put(i + nbPoints, out.get(i).y);
+        }
+        cvFindHomography(srcPoints, dstPoints, homography);
+
+//        opencv_imgproc.cvGetPerspectiveTransform(cpd, cpd1, srcPoints) //       It is better to use : GetPerspectiveTransform
+        return homography;
+    }
+
+    public static opencv_core.CvMat createHomography(PVector[] in, PVector[] out) {
+        opencv_core.CvMat srcPoints;
+        opencv_core.CvMat dstPoints;
+        int nbPoints = in.length;
+        opencv_core.CvMat homography;
+        // TODO: no create map
+        srcPoints = cvCreateMat(2, in.length, opencv_core.CV_32FC1);
+        dstPoints = cvCreateMat(2, in.length, opencv_core.CV_32FC1);
+        homography = cvCreateMat(3, 3, opencv_core.CV_32FC1);
+        for (int i = 0; i < in.length; i++) {
+            srcPoints.put(i, in[i].x);
+            srcPoints.put(i + nbPoints, in[i].y);
+            dstPoints.put(i, out[i].x);
+            dstPoints.put(i + nbPoints, out[i].y);
+        }
+        cvFindHomography(srcPoints, dstPoints, homography);
+        //       It is better to use : GetPerspectiveTransform
+        return homography;
+    }
+
 
 }
