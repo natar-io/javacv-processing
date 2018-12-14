@@ -33,6 +33,7 @@ import static org.bytedeco.javacpp.opencv_core.*;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PMatrix2D;
 import processing.core.PMatrix3D;
 import processing.core.PVector;
 import processing.data.JSONArray;
@@ -736,6 +737,18 @@ public class ProjectiveDeviceP implements PConstants {
         return pdp;
     }
 
+    public static JSONArray PMatrix2DToJSON(PMatrix2D mat) {
+        JSONArray output = new JSONArray();
+        output.append(mat.m00);
+        output.append(mat.m01);
+        output.append(mat.m02);
+
+        output.append(mat.m10);
+        output.append(mat.m11);
+        output.append(mat.m12);
+        return output;
+    }
+    
     public static JSONArray PMatrixToJSON(PMatrix3D mat) {
         JSONArray output = new JSONArray();
         output.append(mat.m00);
@@ -778,5 +791,15 @@ public class ProjectiveDeviceP implements PConstants {
                 array.getFloat(13),
                 array.getFloat(14),
                 array.getFloat(15));
+    }
+    
+    public static PMatrix2D JSONtoPMatrix2D(JSONArray array) {
+        return new PMatrix2D(
+                array.getFloat(0),
+                array.getFloat(1),
+                array.getFloat(2),
+                array.getFloat(3),
+                array.getFloat(4),
+                array.getFloat(5));
     }
 }
