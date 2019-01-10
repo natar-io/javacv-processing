@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>tech.lity.rea</groupId>
     <artifactId>javacv-processing</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -76,7 +76,7 @@
                 </configuration>
             </plugin>
             
-<!--            <plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>
@@ -92,50 +92,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
-            
-            <!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>tech.lity.rea.nectar.SeeThrough</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>-->
-            
-            <!--            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <transformers>
-                                <transformer implementation=
-                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>tech.lity.rea.nectar.SeeThrough</mainClass>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>-->
-            
-            <!--             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-            </plugin>-->
+            </plugin>
+     
         </plugins>
     </build>
     <profiles>
