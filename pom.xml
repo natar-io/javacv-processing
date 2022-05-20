@@ -10,13 +10,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <javacpp.version>1.4</javacpp.version>
+        <javacpp.version>1.5.7</javacpp.version>
     </properties>
     
     <repositories>
         <repository>
             <id>clojars.org</id>
-            <url>http://clojars.org/repo</url>
+            <url>https://repo.clojars.org/</url>
         </repository>
 
         <repository>
@@ -32,15 +32,6 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
-        </repository>
-        
-        <repository>
-            <id>public</id>
-            <name>RealityTech public repository</name>
-            <url>http://forum.rea.lity.tech:8081/repository/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
         </repository>
         
     </repositories>
